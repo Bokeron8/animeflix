@@ -13,5 +13,4 @@ api = Api(
     prefix='/api/v1'
 )
 
-from .routes import anime
-api.add_namespace(anime, path="/cat")
+

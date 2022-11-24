@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 from decouple import config
-from .views.routes_help import help
+from .views.routes_help import anime
+from core.apis.routes import anime_api
 from core.apis import blueprint as api
 
 def create_app():
@@ -8,7 +9,7 @@ def create_app():
     app.config.from_object(config("APP_SETTINGS"))
     
     app.register_blueprint(api)
-    app.register_blueprint(help)
+    app.register_blueprint(anime)
 
     @app.route('/help', methods=['GET'])
     def routes_info():
