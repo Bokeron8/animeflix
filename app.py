@@ -1,12 +1,4 @@
-from flask import Flask, jsonify
+from core import app
 
-
-app = Flask(__name__)
-
-@app.get("/")
-def index():
-    return "Hello world"
-
-@app.get("/hello")
-def say_hello():
-    return jsonify({"message": "Hello world"})
+if __name__ == '__main__':
+    app.run(debug=True)
