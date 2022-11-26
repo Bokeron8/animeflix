@@ -14,6 +14,5 @@ api = Api(
     prefix='/api/v1'
 )
 
+
 api.add_namespace(anime_api)
-
-

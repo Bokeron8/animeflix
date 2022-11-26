@@ -1,12 +1,9 @@
 from flask import jsonify
 from flask_restx import Resource, reqparse, Namespace
-from werkzeug.exceptions import BadRequest, NotFound
-from datetime import datetime
 from .utils import search_anime, get_episodes, get_servers
 
 
 anime_api = Namespace('/', description='Monoschinos APIs')
-
 
 search_parser = reqparse.RequestParser()
 search_parser.add_argument('q', type=str, required=True)
@@ -43,3 +40,4 @@ class GetServersApi(Resource):
         servers = get_servers(title, episode_number)
 
         return jsonify(servers)
+
