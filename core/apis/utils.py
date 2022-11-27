@@ -34,12 +34,20 @@ def get_episodes(anime_name):
 
     return len(episodes)
 
-
-def get_servers(anime_name, episode_number):
-    import base64
+def get_episode_info(anime_name, episode_number):
     url = f"{base_url}{watch_url}"
     r = requests.get(f"{url}{anime_name}-{episode_number}")
     soup = BeautifulSoup(r.content, features="lxml")
+    servers = get_servers(soup=soup)
+    title = soup.select_one('h1.heromain_h1').text
+    anime_info = {
+        'title': title,
+        'servers': servers 
+    }
+    return anime_info
+def get_servers(soup):
+    import base64
+
     soup = soup.select_one(".playother")
     servers = soup.select(".play-video")
     links = []

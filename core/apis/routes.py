@@ -1,6 +1,6 @@
 from flask import jsonify, redirect
 from flask_restx import Resource, reqparse, Namespace
-from .utils import search_anime, get_episodes, get_servers, get_last_episodes
+from .utils import search_anime, get_episodes, get_episode_info, get_last_episodes
 
 
 anime_api = Namespace('/', description='Monoschinos APIs')
@@ -31,14 +31,14 @@ class GetEpisodesApi(Resource):
         episodes = get_episodes(args.get('title'))
         return jsonify(episodes)
 
-@anime_api.route('/get-servers')
-class GetServersApi(Resource):
+@anime_api.route('/get-episode-info')
+class GetEpisodeInfoApi(Resource):
     @anime_api.doc(parser=server_parser)
     def get(self):
         args = server_parser.parse_args()
         title = args.get('title')
         episode_number = args.get('episode-number')
-        servers = get_servers(title, episode_number)
+        servers = get_episode_info(title, episode_number)
 
         return jsonify(servers)
 
