@@ -42,9 +42,8 @@ main{
 ul#servers-btn{
     list-style: none;
     display: flex;
-    width: 100%;
     overflow: auto;
-    justify-content: center;
+    max-width: 100%;
 }
 
 
@@ -53,7 +52,6 @@ li.server-btn button{
     border: solid white 1px;
     border-bottom: 0;
     cursor: pointer;
-    width: 100%;
     white-space: nowrap;
     padding: 10px 20px;
 }
