@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    
+    <link rel="stylesheet" href="{{ url_for('static', file_name='css/search.css') }}">
+    <script src="{{ url_for('static', file_name='javascript/search.js') }}" defer></script>
+    
+    <title>Search Anime</title>
+</head>
+<body>
+    {% extends "layout.html" %}
+    {% block body %}
+    <section class="animes-found">
+        {% for anime in animes %}
+            <article class="anime-card">
+                <a href="{{ url_for('anime.episodes', anime_name = anime['href']) }}">
+                    <img src= "{{ anime['img'] }}"> 
+                </a> 
+                <span>{{ anime['title'] }}</span>
+            </article>
+        {% endfor %}
+    </section>
+    {% endblock %}
+</body>
+</html>
