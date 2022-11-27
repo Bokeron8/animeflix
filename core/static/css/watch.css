@@ -1,0 +1,74 @@
+/* SCROLL BAR*/
+/* Track */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+/* Track */
+::-webkit-scrollbar-track {
+background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #555;
+  }
+/*CONTENT*/
+header{
+    padding-left: 5%;
+    padding-top: 1%;
+}
+body{
+    margin: 0 !important;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.video{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+}
+ul#servers-btn{
+    list-style: none;
+    display: flex;
+    width: 100%;
+    overflow: auto;
+    justify-content: center;
+}
+
+
+li.server-btn button{
+    background: none;
+    border: solid white 1px;
+    border-bottom: 0;
+    cursor: pointer;
+    width: 100%;
+    white-space: nowrap;
+    padding: 10px 20px;
+}
+div#box{
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%; 
+}
+#video{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}

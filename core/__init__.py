@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 import os
 #from decouple import config
 from .apis import blueprint as api
-from core.views.routes_help import anime
+from core.views.routes import anime
 
 def create_app():
     app = Flask(__name__)

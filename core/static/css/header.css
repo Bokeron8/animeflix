@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    box-sizing: border-box;
+}
+/* GENERAL THINGS */
+body{
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-left: 5%;
+    margin-top: 1%;
+}
+a{
+    text-decoration: none;
+}
+.slick-slide {
+    margin: 0 6px;
+}
+
+/* HEADER THINGS*/
+header{
+    display: flex;
+    width: 100%;
+    background-color: black;
+    height: 10%;
+    align-items: center;
+    gap: 20px;
+}
+@media screen and (max-width: 600px) {
+    header nav{display: none;}
+}
+
+.logo{
+    color: red;
+    font-size: 2em;
+    font-weight: bold;
+    text-decoration: none;
+}
+ul.navbar{
+    display: flex;
+    list-style: none;
+    gap: 1.5em;
+}
+li.nav-item{
+    white-space: nowrap;
+}
+#search-form{
+    display: flex;
+    align-items: center;
+
+    border-width: 1px;
+    border-style: solid;
+    border-color: white;
+    padding: 6px 3px;
+    gap: 10px;
+}
+input#anime{
+    border: none;
+    background-color: black;
+    outline: 0;
+}
+button.search{
+    border: none;
+    background: none;
+    font-size: 16px;
+    cursor: pointer;
+}

@@ -14,7 +14,7 @@ def index():
     return render_template('index.html')
 
 @anime.route('/search', methods=['GET'])
-def search_anime():
+def search():
     args = request.args
     query = args.get('q')
     url = request.host_url + 'api/v1'
@@ -24,7 +24,7 @@ def search_anime():
     return r.content
 
 @anime.route('/<anime_name>', methods=['GET'])
-def anime_episodes(anime_name):
+def episodes(anime_name):
     url = request.host_url + 'api/v1'
     params = {'title': anime_name}
     r = requests.get(f'{url}/get-episodes', params=params)
@@ -32,8 +32,33 @@ def anime_episodes(anime_name):
     return r.content
 
 @anime.route('/<anime_name>/<episode_number>', methods=['GET'])
-def watch_anime(anime_name, episode_number):
+def watch(anime_name, episode_number):
     url = request.host_url + 'api/v1'
     params = {'title': anime_name, 'episode-number': episode_number}
     r = requests.get(f'{url}/get-servers', params=params)
     return r.content
+
+@anime.route('/series')
+def series():
+    return 'Series'
+
+@anime.route('/peliculas')
+def peliculas():
+    return 'Peliculas'
+
+@anime.route('/novedades')
+def novedades():
+    return 'novedades'
+
+@anime.route('/lista')
+def lista():
+    return 'lista'
+
+@anime.route('/emision')
+def emision():
+    return 'emision'
+
+@anime.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('404.html', e=e), 404

@@ -1,0 +1,39 @@
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* CONTENT SECTION */
+section{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+article.episode{
+    position: relative;
+}
+
+span{
+    position: absolute;
+    font-size: 1em;
+
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 6px;
+    text-align: center;
+
+    border: 1px solid #ccc;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+    text-transform: uppercase;
+    position: absolute;
+}
+
+
+article.episode img{
+    width: 100%;
+    border-radius: 2px;
+}
+
