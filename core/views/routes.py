@@ -11,7 +11,11 @@ def favicon():
 
 @anime.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    url = request.host_url + url_for('api./_get_last_episodes_api')
+    r = requests.get(url)
+
+    last_episodes = r.json()
+    return render_template("index.html", last_episodes=last_episodes)
 
 @anime.route('/search', methods=['GET'])
 def search():

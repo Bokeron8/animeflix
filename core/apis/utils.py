@@ -1,11 +1,15 @@
 import requests
 import re
+from flask import url_for
 from bs4 import BeautifulSoup
 
-base_url = "https://monoschinos2.com"
+base_url = "https://monoschinos2.com/"
+search_url = "buscar/"
+episodes_url = "anime/"
+watch_url = "ver/"
 
 def search_anime(anime_name):
-    url = f"{base_url}/buscar"
+    url = f"{base_url}{search_url}"
     payload = {'q': anime_name}
     r = requests.get(url, params=payload)  
 
@@ -23,7 +27,7 @@ def search_anime(anime_name):
 
 
 def get_episodes(anime_name):
-    url = f"{base_url}/anime/"
+    url = f"{base_url}{episodes_url}"
     response = requests.request("GET", f'{url}{anime_name}')
     soup = BeautifulSoup(response.text, features="html.parser")
     episodes = soup.select('.col-item')
@@ -33,7 +37,7 @@ def get_episodes(anime_name):
 
 def get_servers(anime_name, episode_number):
     import base64
-    url = f"{base_url}/ver/"
+    url = f"{base_url}{watch_url}"
     r = requests.get(f"{url}{anime_name}-{episode_number}")
     soup = BeautifulSoup(r.content, features="lxml")
     soup = soup.select_one(".playother")
@@ -47,3 +51,23 @@ def get_servers(anime_name, episode_number):
         links.append(l)
 
     return links
+
+
+def get_last_episodes():
+    url = base_url
+    r = requests.get(url)
+    soup = BeautifulSoup(r.content, features='lxml')
+    episodes = soup.select('.col.col-md-6.col-lg-2.col-6')
+
+    result = []
+    for episode in episodes:
+        e = {}
+        href = episode.a['href']
+        anime_name = episode.select_one('.animetitles').text
+        cover_src = episode.select_one('.animeimgdiv').img['data-src']
+        an, en = href.replace(base_url+watch_url, '').rsplit('-', 1)
+        e['href'] = f"{url_for('anime.watch', anime_name=an, episode_number=en)}"
+        e['cover_src'] = cover_src
+        e['anime_title'] = anime_name
+        result.append(e)
+    return result
