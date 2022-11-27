@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from flask import Blueprint, render_template, jsonify, url_for, request, send_from_directory, redirect
 import os
 import requests
