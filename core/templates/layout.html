@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+<html>
+    <header>
+        <a class="logo" href="/">Animeflix</a>
+        <nav>
+            <ul class="navbar">
+                <li class="nav-item"><a href="{{ url_for('anime.series') }}">Series</a></li>
+                <li class="nav-item"><a href="{{ url_for('anime.peliculas') }}">Peliculas</a></li>
+                <li class="nav-item"><a href="{{ url_for('anime.novedades') }}">Novedades Populares</a></li>
+                <li class="nav-item"><a href="{{ url_for('anime.lista') }}">Mi lista</a></li>
+                <li class="nav-item"><a href="{{ url_for('anime.emision') }}">En emision</a></li>
+            </ul>
+        </nav>
+        <form action="{{ url_form('anime.search') }}" method="POST" id="search-form">
+            <div>
+                <button type="submit" class="search" form="search-form"><i class="fas fa-search"></i></button>
+            </div>
+            <div>
+                <input name="anime" id="anime" autocomplete="off"/>
+            </div>
+        </form>
+    </header>
+    <main>
+        {% block body %}
+        {% endblock %}
+    </main>
+</html>
