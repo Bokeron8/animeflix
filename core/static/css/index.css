@@ -26,8 +26,12 @@ span{
     bottom: 0px;
     left: 0px;
     right: 0px;
+    font-size: 1em;
     text-align: center;
     text-transform: uppercase;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     position: absolute;
 }
 

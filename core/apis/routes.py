@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, redirect
 from flask_restx import Resource, reqparse, Namespace
 from .utils import search_anime, get_episodes, get_servers, get_last_episodes
 
@@ -19,7 +19,8 @@ class SearchAnimeApi(Resource):
     @anime_api.doc(parser=search_parser)
     def get(self):
         args = search_parser.parse_args()
-        anime = search_anime(args.get('q'))
+        query = args.get('q')
+        anime = search_anime(query)
         return jsonify(anime)
     
 @anime_api.route('/get-episodes')

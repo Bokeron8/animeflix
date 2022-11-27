@@ -21,12 +21,16 @@ def index():
 def search():
     args = request.args
     query = args.get('q')
+    if query.isspace():
+        return redirect(url_for('anime.index'))
     url = request.host_url + 'api/v1'
 
     params = {'q': query}
     r = requests.get(f'{url}/search', params=params)
     animes = r.json()
+    
     return render_template("search.html", animes=animes)
+    
 
 @anime.route('/<anime_name>', methods=['GET'])
 def episodes(anime_name):

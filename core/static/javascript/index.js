@@ -6,8 +6,8 @@ if (w < 500 && h < 1000){
   console.log('a')
   $('.episodes').slick({
     infinite: true,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToShow: 2,
+    slidesToScroll: 2,
     prevArrow: 'c',
     nextArrow: 'c',
   });
