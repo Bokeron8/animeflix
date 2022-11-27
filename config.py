@@ -17,6 +17,7 @@ class StagingConfig(Config):
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
+    SERVER_NAME = '0.0.0.0'
 
 class TestingConfig(Config):
     TESTING = True
