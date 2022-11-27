@@ -36,7 +36,8 @@ def watch(anime_name, episode_number):
     url = request.host_url + 'api/v1'
     params = {'title': anime_name, 'episode-number': episode_number}
     r = requests.get(f'{url}/get-servers', params=params)
-    return r.content
+    servers = r.json()
+    return render_template("watch.html", servers=servers, anime_name=anime_name, episode_number=episode_number)
 
 @anime.route('/series')
 def series():
