@@ -25,15 +25,16 @@ def search():
 
     params = {'q': query}
     r = requests.get(f'{url}/search', params=params)
-    return r.content
+    animes = r.json()
+    return render_template("search.html", animes=animes)
 
 @anime.route('/<anime_name>', methods=['GET'])
 def episodes(anime_name):
     url = request.host_url + 'api/v1'
     params = {'title': anime_name}
     r = requests.get(f'{url}/get-episodes', params=params)
-
-    return r.content
+    episodes = r.json()
+    return render_template("anime.html", episodes=episodes, anime=anime_name)
 
 @anime.route('/<anime_name>/<episode_number>', methods=['GET'])
 def watch(anime_name, episode_number):

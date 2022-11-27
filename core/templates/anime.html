@@ -12,7 +12,7 @@
     <ul>
     {% for episode in range(episodes) %}
         <li>
-            <a href="url_for('anime.watch', anime_title=anime, episode_number=episode+1 }}">{{ episode + 1 }}</a>
+            <a href="{{ url_for('anime.watch', anime_name=anime, episode_number=episode+1) }}">{{ episode + 1 }}</a>
         </li>
     {% endfor %}
     </ul>
