@@ -20,8 +20,7 @@ def search_anime(anime_name):
         a = {}
         a['title'] = anime.select_one(".seristitles").text
         a['img'] = anime.select_one(".animemainimg")['src']
-        title_sano = re.sub(r'[^\w\s]', '', a['title'])
-        a['href'] = f"{'-'.join(title_sano.split(' '))}"
+        a['href'] = anime.a['href'].replace(base_url+episodes_url, "").replace("-sub-espanol", "")
         animes.append(a)
     return animes
 
