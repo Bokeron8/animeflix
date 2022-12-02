@@ -7,6 +7,11 @@ anime_api = Namespace('/', description='Monoschinos APIs')
 
 search_parser = reqparse.RequestParser()
 search_parser.add_argument('q', type=str, required=True)
+search_parser.add_argument('page_number', type=int, required=False)
+search_parser.add_argument('filtro', type=str, required=False)
+search_parser.add_argument('tipo', type=str, required=False)
+search_parser.add_argument('estado', type=str, required=False)
+search_parser.add_argument('orden', type=str, required=False)
 
 anime_parser = reqparse.RequestParser()
 anime_parser.add_argument('title', type=str, required=True)
@@ -19,8 +24,18 @@ class SearchAnimeApi(Resource):
     @anime_api.doc(parser=search_parser)
     def get(self):
         args = search_parser.parse_args()
-        query = args.get('q')
-        anime = search_anime(query)
+        data = {
+        'anime_name': args.get('q'),
+        'page_number': args.get('page_number')
+        }
+        filters = {
+        'filtro': args.get('filtro'),
+        'tipo': args.get('tipo'),
+        'estado': args.get('estado'),
+        'orden': args.get('orden')
+        }
+        
+        anime = search_anime(data, filters)
         return jsonify(anime)
     
 @anime_api.route('/get-episodes')

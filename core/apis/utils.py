@@ -1,80 +1,93 @@
-import requests
 import re
+import cloudscraper
 from flask import url_for
 from bs4 import BeautifulSoup
 
-base_url = "https://monoschinos2.com/"
-search_url = "buscar/"
-episodes_url = "anime/"
-watch_url = "ver/"
-
-def search_anime(anime_name):
-    url = f"{base_url}{search_url}"
-    payload = {'q': anime_name}
-    r = requests.get(url, params=payload)  
-
-    soup = BeautifulSoup(r.content, features="lxml")
-    result = soup.select(".col-md-4.col-lg-2.col-6")
-    animes = []
-    for anime in result:
-        a = {}
-        a['title'] = anime.select_one(".seristitles").text
-        a['img'] = anime.select_one(".animemainimg")['src']
-        a['href'] = anime.a['href'].replace(base_url+episodes_url, "").replace("-sub-espanol", "")
-        animes.append(a)
-    return animes
+scraper = cloudscraper.create_scraper() 
+base_url = 'https://jkanime.net/'
+anime_url = '{anime_name}/'
+buscar_url = 'buscar/{anime_name}/{page_number}/'
+watch_url = '{anime_name}/{episode_number}/'
 
 
+def search_anime(data, filters):
+
+  url = base_url+buscar_url.format(**data)
+  r = scraper.get(url, params=filters)
+  soup = BeautifulSoup(r.content, features='lxml')
+  results = soup.select('.anime__item')
+  animes = []
+  for result in results:
+    a = {}
+    a['title'] = result.select_one(".title").text
+    a['img'] = result.a.div['data-setbg']
+    a['href'] = result.a['href'].replace(base_url, "")
+    animes.append(a)
+
+  return animes
+  
 def get_episodes(anime_name):
-    url = f"{base_url}{episodes_url}"
-    response = requests.request("GET", f'{url}{anime_name}')
-    soup = BeautifulSoup(response.text, features="html.parser")
-    episodes = soup.select('.col-item')
-
-    return len(episodes)
+  url = base_url+anime_url.format(anime_name=anime_name)
+  r = scraper.get(url)
+  soup = BeautifulSoup(r.content, features='lxml')
+  details = soup.select('div.col-lg-6.col-md-6 ul li')
+  result = {}
+  for detail in details:
+    info = detail.text.split(':')[1]
+    result[info[0]] = " ".join(info[1].split())
+    
 
 def get_episode_info(anime_name, episode_number):
-    url = f"{base_url}{watch_url}"
-    r = requests.get(f"{url}{anime_name}-{episode_number}")
-    soup = BeautifulSoup(r.content, features="lxml")
-    servers = get_servers(soup=soup)
-    title = soup.select_one('h1.heromain_h1').text
-    anime_info = {
-        'title': title,
-        'servers': servers 
-    }
-    return anime_info
+
+  url = f"{base_url}{watch_url.format(anime_name=anime_name, episode_number=episode_number)}"
+  r = scraper.get(url)
+  soup = BeautifulSoup(r.content, features='lxml')
+  title = soup.select_one('.breadcrumb__links').h1.text
+  servers = get_servers(soup=soup)
+  anime_info = {
+    'title': title,
+    'servers': servers
+  }
+  return anime_info
+
 def get_servers(soup):
-    import base64
-
-    soup = soup.select_one(".playother")
-    servers = soup.select(".play-video")
-    links = []
-    for server in servers:
-        l = {}
-        link = base64.b64decode(server['data-player']).decode("utf-8")
-        l['link'] = re.findall('url=([:/?=&;a-zA-Z0-9%\._-]*)', link)[0]
-        l['name'] = server.text
-        links.append(l)
-
-    return links
-
+  
+  scripts = soup.select('script')
+  result = []
+  for script in scripts:
+    script = script.text
+    if 'var video = [];' in script:
+      servers = re.findall('src=".([:?=/&;a-zA-Z0-9%\._-]*)', script)
+      for i, server in enumerate(servers, start=1):
+        s = {}
+        btn = soup.select_one(f'a#btn-show-{i}')
+        server_name = btn.text
+        s['name'] = server_name
+        s['link'] = base_url+server
+        if server_name == 'Nozomi':
+          continue
+        elif server_name == 'Mega':
+          s['link'] = 'h'+server
+        result.append(s)
+  return result
 
 def get_last_episodes():
-    url = base_url
-    r = requests.get(url)
-    soup = BeautifulSoup(r.content, features='lxml')
-    episodes = soup.select('.col.col-md-6.col-lg-2.col-6')
+  url = base_url
+  r = scraper.get(url)
+  soup = BeautifulSoup(r.content, features='lxml')
 
-    result = []
-    for episode in episodes:
-        e = {}
-        href = episode.a['href']
-        anime_name = episode.select_one('.animetitles').text
-        cover_src = episode.select_one('.animeimgdiv').img['data-src']
-        an, en = href.replace(base_url+watch_url, '').rsplit('-', 1)
-        e['href'] = f"{url_for('anime.watch', anime_name=an, episode_number=en)}"
-        e['cover_src'] = cover_src
-        e['anime_title'] = anime_name
-        result.append(e)
-    return result
+  results = soup.select('.bloqq')
+
+  episodes = []
+  for result in results:
+    e = {}
+    href = result['href'].replace(base_url, "")
+    anime_name = result.select_one('.anime__sidebar__comment__item__text h5').text
+    cover_src = result.select_one('.anime__sidebar__comment__item__pic.listadohome img')['src']
+    an, en, nouse = href.split('/')
+    e['href'] = f"{url_for('anime.watch', anime_name=an, episode_number=en)}"
+    e['cover_src'] = cover_src
+    e['anime_title'] = anime_name
+    episodes.append(e)
+
+  return episodes
