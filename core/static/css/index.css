@@ -26,18 +26,20 @@ span{
     bottom: 0px;
     left: 0px;
     right: 0px;
-    font-size: 1em;
+
     text-align: center;
     text-transform: uppercase;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    position: absolute;
 }
 
 
-article.episode img{
+article.episode a img{
     width: 100%;
-    border-radius: 2px;
+    height: 130px;
+    object-fit: cover;
+    object-position: middle;
+    border-radius: 1%;
 }
 

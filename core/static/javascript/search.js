@@ -4,8 +4,8 @@ var h = $(window).height();
 if (w < 500 && h < 1000){
   $('.animes-found').slick({
     infinite: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
+    slidesToShow: 3,
+    slidesToScroll: 3,
     prevArrow: 'c',
     nextArrow: 'c',
   });
@@ -13,8 +13,8 @@ if (w < 500 && h < 1000){
 else{
   $('.animes-found').slick({
     infinite: true,
-    slidesToShow: Math.min($(".animes-found").children().length, 4),
-    slidesToScroll: Math.min($(".animes-found").children().length, 4),
+    slidesToShow: Math.min($(".animes-found").children().length, 5),
+    slidesToScroll: Math.min($(".animes-found").children().length, 5),
     prevArrow: 'c',
     nextArrow: 'c',
   });

@@ -33,8 +33,12 @@ def get_episodes(anime_name):
   details = soup.select('div.col-lg-6.col-md-6 ul li')
   result = {}
   for detail in details:
-    info = detail.text.split(':')[1]
+    info = detail.text.split(':')
     result[info[0]] = " ".join(info[1].split())
+  if result['Episodios'] == "Desconocido":
+    episodes = soup.select_one(".anime__pagination :last-child")
+    result['Episodios'] = int(episodes.text.split('-')[1])
+  return result
     
 
 def get_episode_info(anime_name, episode_number):

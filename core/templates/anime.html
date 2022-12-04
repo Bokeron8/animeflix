@@ -10,7 +10,7 @@
     {% extends "layout.html" %}
     {% block body %}
     <ul>
-    {% for episode in range(episodes) %}
+    {% for episode in range(info['Episodios']) %}
         <li>
             <a href="{{ url_for('anime.watch', anime_name=anime, episode_number=episode+1) }}">{{ episode + 1 }}</a>
         </li>

@@ -2,15 +2,15 @@
 section.animes-found{
     display: flex;
     align-items: center;
+    height: 33%;
 }
 article.anime-card{
     position: relative;
-    width: 100%;
 }
 
 article.anime-card span{
     position: absolute;
-    font-size: 1.5rem;
+    font-size: 1em;
 
     background-color: rgba(0, 0, 0, 0.8);
     border-radius: 6px;
@@ -20,11 +20,19 @@ article.anime-card span{
     bottom: 0px;
     left: 0px;
     right: 0px;
+
     text-align: center;
     text-transform: uppercase;
-    position: absolute;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
+
 article.anime-card a img{
     width: 100%;
+    height: 130px;
+    object-fit: cover;
+    object-position: middle;
     border-radius: 1%;
 }
+    

@@ -33,8 +33,8 @@ def episodes(anime_name):
     url = request.host_url + 'api/v1'
     params = {'title': anime_name}
     r = requests.get(f'{url}/get-episodes', params=params)
-    episodes = r.json()
-    return render_template("anime.html", episodes=episodes, anime=anime_name)
+    info = r.json()
+    return render_template("anime.html", info=info, anime=anime_name)
 
 @anime.route('/<anime_name>/<episode_number>', methods=['GET'])
 def watch(anime_name, episode_number):
@@ -65,6 +65,16 @@ def lista():
 @anime.route('/emision')
 def emision():
     return 'emision'
+
+@anime.route('/test')
+def test():
+    args = request.args
+    url = request.host_url + 'api/v1'
+
+    r = requests.get(f'{url}/search', params=args)
+    animes = r.json()
+
+    return render_template('test.html', animes=animes)
 
 @anime.errorhandler(404)
 def page_not_found(e):
