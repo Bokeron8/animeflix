@@ -46,7 +46,6 @@ ul#servers-btn{
     max-width: 100%;
 }
 
-
 li.server-btn button{
     background: none;
     border: solid white 1px;
@@ -59,7 +58,7 @@ div#box{
     position: relative;
     overflow: hidden;
     width: 100%;
-    padding-top: 56.25%; 
+    padding-top: 36.25%;
 }
 #video{
     position: absolute;
@@ -68,8 +67,9 @@ div#box{
     bottom: 0;
     right: 0;
     width: 100%;
-    height: 80%;
+    height: 100%;
 }
+
 div#episode-btns{
     display: grid;
     width: 100%;
