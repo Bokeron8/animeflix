@@ -68,5 +68,25 @@ div#box{
     bottom: 0;
     right: 0;
     width: 100%;
-    height: 100%;
+    height: 80%;
+}
+div#episode-btns{
+    display: grid;
+    width: 100%;
+    grid-template-columns: auto 60% auto;
+}
+#episode-btns button{
+    width: 100%;
+    background: none;
+    cursor: pointer;
+    border-style: solid;
+    border-width: 2px;
+    border-color: white;
+    padding: 10px 0;
+}
+button#next-episode{
+    border-radius: 0 15px 15px 0;
+}
+button#prev-episode{
+    border-radius: 15px 0 0 15px;
 }
