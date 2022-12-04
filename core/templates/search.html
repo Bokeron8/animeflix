@@ -20,7 +20,7 @@
     <section class="animes-found">
         {% for anime in animes %}
             <article class="anime-card">
-                <a href="{{ url_for('anime.episodes', anime_name = anime['href']) }}">
+                <a href="{{ anime['href'] }}">
                     <img src= "{{ anime['img'] }}"> 
                 </a> 
                 <span>{{ anime['title'] }}</span>

@@ -21,7 +21,8 @@ def search_anime(data, filters):
     a = {}
     a['title'] = result.select_one(".title").text
     a['img'] = result.a.div['data-setbg']
-    a['href'] = result.a['href'].replace(base_url, "")
+    an, nouse = result.a['href'].replace(base_url, "").split('/')
+    a['href'] = f"{url_for('anime.episodes', anime_name=an)}"
     animes.append(a)
 
   return animes
@@ -38,6 +39,8 @@ def get_episodes(anime_name):
   if result['Episodios'] == "Desconocido":
     episodes = soup.select_one(".anime__pagination :last-child")
     result['Episodios'] = int(episodes.text.split('-')[1])
+  else:
+    result['Episodios'] = int(result['Episodios'])
   return result
     
 

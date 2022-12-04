@@ -1,14 +1,32 @@
 
-section.animes-found{
-    display: flex;
-    align-items: center;
-    height: 33%;
+@media screen and (max-width: 600px) {
+    .animes-found{
+        grid-template-columns: auto auto;
+    }
 }
-article.anime-card{
-    position: relative;
+@media screen and (min-width: 600px) {
+    .animes-found{
+        grid-template-columns: auto auto auto auto auto;
+    }
+}
+.animes-found{
+    display: grid;
+    column-gap: 4px;
+    row-gap: 30px;
 }
 
-article.anime-card span{
+.anime-card a img{
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    object-position: middle;
+    border-radius: 1%;
+}
+
+.anime-card{
+    position: relative;
+}
+span{
     position: absolute;
     font-size: 1em;
 
@@ -27,12 +45,3 @@ article.anime-card span{
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-
-article.anime-card a img{
-    width: 100%;
-    height: 130px;
-    object-fit: cover;
-    object-position: middle;
-    border-radius: 1%;
-}
-    
