@@ -37,9 +37,16 @@ span{
 
 article.episode a img{
     width: 100%;
-    height: 130px;
+    height: 100%;
     object-fit: cover;
     object-position: middle;
     border-radius: 1%;
+}
+
+div.episodes{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 12px;
 }
 

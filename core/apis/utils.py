@@ -58,24 +58,24 @@ def get_episode_info(anime_name, episode_number):
   return anime_info
 
 def get_servers(soup):
-  
+  import ast
   scripts = soup.select('script')
   result = []
   for script in scripts:
     script = script.text
     if 'var video = [];' in script:
-      servers = re.findall('src=".([:?=/&;a-zA-Z0-9%\._-]*)', script)
+      #servers = re.findall('src=".([:?=/&;a-zA-Z0-9%\._-]*)', script)
+      print("SERVERS")
+      servers = re.findall('servers = (\[.*\]);', script)
+      servers = ast.literal_eval(servers[0])
       for i, server in enumerate(servers, start=1):
         s = {}
-        btn = soup.select_one(f'a#btn-show-{i}')
-        server_name = btn.text
+        server_name = server['server']
         s['name'] = server_name
-        s['link'] = base_url+server
-        if server_name == 'Nozomi':
-          continue
-        elif server_name == 'Mega':
-          s['link'] = 'h'+server
+        s['link'] = decode64(server['remote']).decode('utf-8')
+
         result.append(s)
+  print(result)
   return result
 
 def get_last_episodes():
@@ -98,3 +98,7 @@ def get_last_episodes():
     episodes.append(e)
 
   return episodes
+
+def decode64(string64):
+  import base64
+  return base64.b64decode(string64)

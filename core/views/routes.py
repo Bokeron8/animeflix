@@ -48,8 +48,10 @@ def watch(anime_name, episode_number):
 
 @anime.route('/series')
 def series():
-    return 'Series'
-
+    return render_template("series.html")
+@anime.route('/prueba')
+def prueba():
+    return render_template("prueba.html")
 @anime.route('/peliculas')
 def peliculas():
     return 'Peliculas'

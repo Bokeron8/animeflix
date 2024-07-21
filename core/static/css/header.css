@@ -13,14 +13,11 @@ body{
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    margin-left: 5%;
+    margin: 5%;
     margin-top: 1%;
 }
 a{
     text-decoration: none;
-}
-.slick-slide {
-    margin: 0 6px;
 }
 
 /* HEADER THINGS*/

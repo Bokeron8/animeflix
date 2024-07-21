@@ -64,4 +64,3 @@ class GetLastEpisodesApi(Resource):
         last_episodes = get_last_episodes()
 
         return jsonify(last_episodes)
-
